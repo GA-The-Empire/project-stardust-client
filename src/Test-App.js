@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import io from 'socket.io-client'
+import apiUrl from './apiConfig'
 
 const Page = styled.div`
   display: flex
@@ -99,7 +100,7 @@ const App = () => {
   const socketRef = useRef()
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:8000/')
+    socketRef.current = io.connect(apiUrl)
 
     socketRef.current.on('your id', id => {
       setYourID(id)
