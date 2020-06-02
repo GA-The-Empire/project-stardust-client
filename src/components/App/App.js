@@ -9,7 +9,6 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import ChangeUserName from '../ChangeUserName/ChangeUserName'
-import AutoSignIn from '../AutoSignIn/AutoSignIn'
 import Chat from '../Chat/Chat'
 
 class App extends Component {
@@ -35,7 +34,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <Header user={user} />
+        <Header user={user} msgAlert={this.msgAlert} setUser={this.setUser} />
         {msgAlerts.map((msgAlert, index) => (
           <AutoDismissAlert
             key={index}
@@ -53,9 +52,6 @@ class App extends Component {
           )} />
           <Route exact path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route exact path='/autosign-in' render={() => (
-            <AutoSignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
           <AuthenticatedRoute exact user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />

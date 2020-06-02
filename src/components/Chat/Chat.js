@@ -19,7 +19,6 @@ const Chat = (user) => {
     })
 
     socketRef.current.on('message', (message) => {
-      console.log('here')
       receivedMessage(message)
     })
   }, [])
@@ -30,7 +29,6 @@ const Chat = (user) => {
 
   function sendMessage (e) {
     e.preventDefault()
-    console.log(user)
     const messageObject = {
       body: user.user.userName + ' - ' + message,
       id: yourID

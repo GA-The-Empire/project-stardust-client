@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import AutoSignIn from '../AutoSignIn/AutoSignIn'
 import { Button } from 'react-bootstrap'
 
 const authenticatedOptions = (
@@ -16,7 +17,6 @@ const unauthenticatedOptions = (
   <Fragment>
     <Nav.Link href="#sign-up">{<Button variant="success">Sign Up</Button>}</Nav.Link>
     <Nav.Link href="#sign-in">{<Button variant="success">Sign In</Button>}</Nav.Link>
-    <Nav.Link href="#autosign-in">{<Button variant="success">Auto Sign In</Button>}</Nav.Link>
   </Fragment>
 )
 
@@ -26,7 +26,7 @@ const alwaysOptions = (
   </Fragment>
 )
 
-const Header = ({ user }) => (
+const Header = ({ user, msgAlert, setUser }) => (
   <Navbar bg="dark" variant="dark" expand="md">
     <Navbar.Brand href="#">
       <img
@@ -44,6 +44,8 @@ const Header = ({ user }) => (
         { user && <span className="navbar-text mr-2">Welcome, {user.userName}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
+        {console.log(msgAlert)}
+        { !user && <AutoSignIn msgAlerts={msgAlert} setUser={setUser} />}
       </Nav>
     </Navbar.Collapse>
   </Navbar>
