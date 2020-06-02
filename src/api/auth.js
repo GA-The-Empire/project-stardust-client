@@ -9,7 +9,8 @@ export const signUp = credentials => {
       credentials: {
         email: credentials.email,
         password: credentials.password,
-        password_confirmation: credentials.passwordConfirmation
+        password_confirmation: credentials.passwordConfirmation,
+        userName: credentials.userName
       }
     }
   })
@@ -49,6 +50,21 @@ export const changePassword = (passwords, user) => {
       passwords: {
         old: passwords.oldPassword,
         new: passwords.newPassword
+      }
+    }
+  })
+}
+
+export const changeUserName = (credentials, user) => {
+  return axios({
+    url: apiUrl + '/change-username',
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      credentials: {
+        userName: credentials.userName
       }
     }
   })

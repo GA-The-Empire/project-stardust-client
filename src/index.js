@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 
 // import App from './components/App/App'
-import App from './Test-App'
+import App from './components/App/App'
 import { HashRouter } from 'react-router-dom'
 
 const appJsx = (

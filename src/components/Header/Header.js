@@ -1,36 +1,39 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import { Button } from 'react-bootstrap'
 
 const authenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#change-password">Change Password</Nav.Link>
-    <Nav.Link href="#sign-out">Sign Out</Nav.Link>
+    <Nav.Link href="#change-password">{<Button variant="success">Change Password</Button>}</Nav.Link>
+    <Nav.Link href="#change-username">{<Button variant="success">Change User Name</Button>}</Nav.Link>
+    <Nav.Link href="#sign-out">{<Button variant="danger">Sign Out</Button>}</Nav.Link>
   </Fragment>
 )
 
 const unauthenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#sign-up">Sign Up</Nav.Link>
-    <Nav.Link href="#sign-in">Sign In</Nav.Link>
+    <Nav.Link href="#sign-up">{<Button variant="success">Sign Up</Button>}</Nav.Link>
+    <Nav.Link href="#sign-in">{<Button variant="success">Sign In</Button>}</Nav.Link>
+    <Nav.Link href="#autosign-in">{<Button variant="success">Auto Sign In</Button>}</Nav.Link>
   </Fragment>
 )
 
 const alwaysOptions = (
   <Fragment>
-    <Nav.Link to="/">Home</Nav.Link>
+    <Nav.Link href="#/">{<Button variant="secondary">Home</Button>}</Nav.Link>
   </Fragment>
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar bg="dark" variant="dark" expand="md">
     <Navbar.Brand href="#">
-      react-auth-template
+      Project Stardust Client
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
+        { user && <span className="navbar-text mr-2">Welcome, {user.userName}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
