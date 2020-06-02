@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap'
 
 const authenticatedOptions = (
   <Fragment>
+    <Nav.Link href="#chat">{<Button variant="warning">Chat</Button>}</Nav.Link>
     <Nav.Link href="#change-password">{<Button variant="success">Change Password</Button>}</Nav.Link>
     <Nav.Link href="#change-username">{<Button variant="success">Change User Name</Button>}</Nav.Link>
     <Nav.Link href="#sign-out">{<Button variant="danger">Sign Out</Button>}</Nav.Link>
@@ -28,6 +29,13 @@ const alwaysOptions = (
 const Header = ({ user }) => (
   <Navbar bg="dark" variant="dark" expand="md">
     <Navbar.Brand href="#">
+      <img
+        alt=""
+        src="./empirelogo.png"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />{' '}
       Project Stardust Client
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
