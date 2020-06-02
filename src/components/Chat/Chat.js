@@ -4,7 +4,7 @@ import apiUrl from './../../apiConfig'
 import './../../index.scss'
 import { Button } from 'react-bootstrap'
 
-const Chat = () => {
+const Chat = (user) => {
   const [yourID, setYourID] = useState()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
@@ -30,8 +30,9 @@ const Chat = () => {
 
   function sendMessage (e) {
     e.preventDefault()
+    console.log(user)
     const messageObject = {
-      body: message,
+      body: user.user.userName + ' - ' + message,
       id: yourID
     }
     setMessage('')
@@ -66,7 +67,7 @@ const Chat = () => {
       </div>
       <form className="form1" onSubmit={sendMessage}>
         <input className="textArea1" value={message} onChange={handleChange} placeholder="Say something..." />
-        <Button className="button1" type="submit">Send</Button>
+        <Button className="button1" variant='secondary' type="submit">Send</Button>
       </form>
     </div>
   )
