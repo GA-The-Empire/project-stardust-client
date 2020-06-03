@@ -4,7 +4,7 @@ import apiUrl from './../../apiConfig'
 import './../../index.scss'
 import { Button } from 'react-bootstrap'
 
-const Chat = (user) => {
+const Chat = ({ user }) => {
   const [yourID, setYourID] = useState()
   const [messages, setMessages] = useState([])
   const [message, setMessage] = useState('')
@@ -14,22 +14,28 @@ const Chat = (user) => {
   useEffect(() => {
     socketRef.current = io.connect(apiUrl)
 
-    socketRef.current.on('your id', id => {
-      setYourID(id)
+    socketRef.current.on('your id', res => {
+      console.log(res.id, 'your id on')
+      console.log(res.body)
+      setYourID(res.id)
     })
 
-    socketRef.current.on('connection', msg => {
-      console.log(msg)
-      receivedMessage(msg)
+    socketRef.current.on('connect', () => {
+      console.log(user)
+      socketRef.current.emit('send message', { id: '', body: `${user.userName} has entered the chat` })
     })
 
     socketRef.current.on('disconnect', msg => {
-      receivedMessage(msg)
+      socketRef.current.emit('send message', { id: '', body: `${user.userName} has left the chat` })
     })
 
     socketRef.current.on('message', (message) => {
       receivedMessage(message)
     })
+
+    return () => {
+      socketRef.current.disconnect()
+    }
   }, [])
 
   function receivedMessage (message) {
@@ -39,7 +45,7 @@ const Chat = (user) => {
   function sendMessage (e) {
     e.preventDefault()
     const messageObject = {
-      body: user.user.userName + ' - ' + message,
+      body: user.userName + ' - ' + message,
       id: yourID
     }
     setMessage('')
