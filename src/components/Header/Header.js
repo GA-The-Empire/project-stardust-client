@@ -44,7 +44,6 @@ const Header = ({ user, msgAlert, setUser }) => (
         { user && <span className="navbar-text mr-2">Welcome, {user.userName}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
-        {console.log(msgAlert)}
         { !user && <AutoSignIn msgAlerts={msgAlert} setUser={setUser} />}
       </Nav>
     </Navbar.Collapse>

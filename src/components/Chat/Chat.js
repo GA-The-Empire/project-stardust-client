@@ -18,6 +18,15 @@ const Chat = (user) => {
       setYourID(id)
     })
 
+    socketRef.current.on('connection', msg => {
+      console.log(msg)
+      receivedMessage(msg)
+    })
+
+    socketRef.current.on('disconnect', msg => {
+      receivedMessage(msg)
+    })
+
     socketRef.current.on('message', (message) => {
       receivedMessage(message)
     })
