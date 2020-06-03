@@ -9,7 +9,14 @@ const authenticatedOptions = (
     <Nav.Link href="#chat">{<Button variant="warning">Chat</Button>}</Nav.Link>
     <Nav.Link href="#change-password">{<Button variant="success">Change Password</Button>}</Nav.Link>
     <Nav.Link href="#change-username">{<Button variant="success">Change User Name</Button>}</Nav.Link>
+    <Nav.Link href="#profile">{<Button variant="info">Profile</Button>}</Nav.Link>
     <Nav.Link href="#sign-out">{<Button variant="danger">Sign Out</Button>}</Nav.Link>
+  </Fragment>
+)
+
+const profileOptions = (
+  <Fragment>
+    <Nav.Link href="#profile/update">{<Button variant="info">Update Profile</Button>}</Nav.Link>
   </Fragment>
 )
 
