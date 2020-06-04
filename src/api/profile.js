@@ -1,6 +1,5 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
-
 export const createProfile = (credentials, user) => {
   return axios({
     method: 'POST',
@@ -22,7 +21,6 @@ export const createProfile = (credentials, user) => {
     }
   })
 }
-
 export const updateProfile = (credentials, user) => {
   return axios({
     url: apiUrl + '/profile/' + user._id,
@@ -44,7 +42,6 @@ export const updateProfile = (credentials, user) => {
     }
   })
 }
-
 export const deleteProfile = user => {
   return axios({
     url: apiUrl + '/profile/' + user._id,
@@ -54,7 +51,6 @@ export const deleteProfile = user => {
     }
   })
 }
-
 export const getProfile = user => {
   return axios({
     url: apiUrl + '/profile/' + user._id,

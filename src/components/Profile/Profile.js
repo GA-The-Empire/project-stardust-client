@@ -5,11 +5,9 @@ import { createProfile, updateProfile, deleteProfile, getProfile } from './../..
 import './../../index.scss'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import messages from '../AutoDismissAlert/messages'
-
 class Profile extends Component {
   constructor () {
     super()
-
     this.state = {
       about: '',
       avatarUrl: '',
@@ -18,14 +16,11 @@ class Profile extends Component {
       website: ''
     }
   }
-
   handleChange = event => this.setState({
     [event.target.name]: event.target.value
   })
-
   onCreateProfile = event => {
     const { msgAlert, user } = this.props
-
     createProfile(this.state, user)
       .then(() => msgAlert({
         heading: 'Create Success',
@@ -47,12 +42,9 @@ class Profile extends Component {
         })
       })
   }
-
   onUpdateProfile = event => {
     event.preventDefault()
-
     const { msgAlert, user } = this.props
-
     updateProfile(this.state, user)
       .then(() => msgAlert({
         heading: 'Update Profile Successful',
@@ -67,12 +59,9 @@ class Profile extends Component {
         })
       })
   }
-
   onDeleteProfile = event => {
     event.preventDefault()
-
     const { msgAlert, user } = this.props
-
     deleteProfile(user)
       .then(() => msgAlert({
         heading: 'Profile Deleted Successful',
@@ -98,7 +87,6 @@ class Profile extends Component {
         })
       })
   }
-
   onGetProfile = event => {
     const { msgAlert, user } = this.props
     getProfile(user)
@@ -125,23 +113,18 @@ class Profile extends Component {
         })
       })
   }
-
   componentDidMount () {
     const { user } = this.props
-    console.log(user.profile)
     if (user.profile) {
       this.onGetProfile()
     } else if (!user.profile) {
       this.onCreateProfile()
     }
   }
-
   render () {
     const { avatarUrl, about, rank, quote, website } = this.state
-
     return (
       <div>
-
         <Form className='updateForm' onSubmit={this.onUpdateProfile}>
           <Form.Group controlId="about">
             <Form.Label>About</Form.Label>
@@ -218,5 +201,4 @@ class Profile extends Component {
     )
   }
 }
-
 export default withRouter(Profile)
