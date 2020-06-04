@@ -67,7 +67,7 @@ class App extends Component {
             <Chat msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute exact user={user} path='/profile' render={() => (
-            <Profile msgAlert={this.msgAlert} user={user} />
+            <Profile msgAlert={this.msgAlert} user={user} setUser={this.setUser} />
           )} />
         </main>
       </Fragment>

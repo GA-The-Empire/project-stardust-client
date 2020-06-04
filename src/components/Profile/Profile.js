@@ -6,9 +6,9 @@ import './../../index.scss'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import messages from '../AutoDismissAlert/messages'
 class Profile extends Component {
-  constructor () {
-    super()
-    this.state = {
+  constructor (props) {
+    super(props)
+    this.state = props.user.profile || {
       about: '',
       avatarUrl: '',
       quote: '',
@@ -22,6 +22,7 @@ class Profile extends Component {
   onCreateProfile = event => {
     const { msgAlert, user } = this.props
     createProfile(this.state, user)
+      .then((res) => this.props.setUser(res.data.user))
       .then(() => msgAlert({
         heading: 'Create Success',
         message: messages.createProfileSuccess,
@@ -46,11 +47,13 @@ class Profile extends Component {
     event.preventDefault()
     const { msgAlert, user } = this.props
     updateProfile(this.state, user)
+      .then((res) => this.props.setUser(res.data.user))
       .then(() => msgAlert({
         heading: 'Update Profile Successful',
         message: messages.updateProfileSuccess,
         variant: 'success'
       }))
+      .then(() => this.props.history.push('/'))
       .catch(error => {
         msgAlert({
           heading: 'Update Profile Failed with error: ' + error.message,
@@ -87,41 +90,50 @@ class Profile extends Component {
         })
       })
   }
-  onGetProfile = event => {
-    const { msgAlert, user } = this.props
-    getProfile(user)
-      .then(user => user.data.profile)
-      .then(user => {
-        this.setState({
-          about: user.about,
-          avatarUrl: user.avatarUrl,
-          quote: user.quote,
-          rank: user.rank,
-          website: user.website
-        })
-      })
-      .then(() => msgAlert({
-        heading: 'Get Profile Successful',
-        message: messages.getProfileSuccess,
-        variant: 'success'
-      }))
-      .catch(error => {
-        msgAlert({
-          heading: 'Get Profile Failed with error: ' + error.message,
-          message: messages.getProfileFailure,
-          variant: 'danger'
-        })
-      })
-  }
+  // onGetProfile = event => {
+  //   const { msgAlert, user } = this.props
+  //   getProfile(user)
+  //     .then(user => user.data.profile)
+  //     .then(user => {
+  //       this.setState({
+  //         about: user.about,
+  //         avatarUrl: user.avatarUrl,
+  //         quote: user.quote,
+  //         rank: user.rank,
+  //         website: user.website
+  //       })
+  //     })
+  //     .then(() => msgAlert({
+  //       heading: 'Get Profile Successful',
+  //       message: messages.getProfileSuccess,
+  //       variant: 'success'
+  //     }))
+  //     .catch(error => {
+  //       msgAlert({
+  //         heading: 'Get Profile Failed with error: ' + error.message,
+  //         message: messages.getProfileFailure,
+  //         variant: 'danger'
+  //       })
+  //     })
+  // }
   componentDidMount () {
     const { user } = this.props
-    console.log(user.profile)
-    if (user.profile) {
-      this.onGetProfile()
-    } else if (!user.profile) {
+    console.log('component did mount: ', user.profile)
+    if (!user.profile) {
       this.onCreateProfile()
     }
+    // else {
+    //   this.onGetProfile()
+    // }
   }
+  // componentWillReceiveProps (nextProps) {
+  //   const { user } = this.props
+  //   console.log('This is the props: ', this.props)
+  //   console.log('This is the next props ', nextProps)
+  //   if (user.profile && user.profile.about !== nextProps.user.profile.about) {
+  //     this.setState(nextProps.user.profile)
+  //   }
+  // }
   render () {
     const { avatarUrl, about, rank, quote, website } = this.state
     return (
