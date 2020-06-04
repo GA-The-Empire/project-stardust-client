@@ -5,6 +5,10 @@ main.container {
   padding: 0;
 }
 
+body {
+  background-image: url('./star-wars-backgrounds-25.jpg');
+}
+
 .container1 {
   border: 1px solid lightgray;
   border-radius: 10px;
@@ -18,9 +22,33 @@ main.container {
   width: 400px;
 }
 
+.updateForm {
+  border: 1px solid black;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  margin-top: 25px;
+  max-height: 500px;
+  overflow: auto;
+  padding-bottom: 10px;
+  width: 400px;
+  padding: 10px;
+  margin: auto;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  width: 400px;
+  padding: 10px;
+  margin: auto;
+}
+
 .page1 {
   align-items: center;
-  background-image: url('./star-wars-backgrounds-25.jpg');
   display: flex;
   flex-direction: column;
   height: 100vh;

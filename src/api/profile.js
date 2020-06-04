@@ -2,8 +2,6 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 export const createProfile = (credentials, user) => {
-  console.log(credentials)
-  console.log(user)
   return axios({
     method: 'POST',
     headers: {
@@ -26,9 +24,6 @@ export const createProfile = (credentials, user) => {
 }
 
 export const updateProfile = (credentials, user) => {
-  console.log('This is the credentials:', credentials)
-  console.log('This is the user:', user)
-  console.log('This is the user.profile:', user.profile)
   return axios({
     url: apiUrl + '/profile/' + user._id,
     method: 'PATCH',
@@ -57,5 +52,12 @@ export const deleteProfile = user => {
     headers: {
       'Authorization': `Token token=${user.token}`
     }
+  })
+}
+
+export const getProfile = user => {
+  return axios({
+    url: apiUrl + '/profile/' + user._id,
+    method: 'GET'
   })
 }

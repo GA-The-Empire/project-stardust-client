@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 // import apiUrl from './../../apiConfig'
-import { createProfile, updateProfile, deleteProfile } from './../../api/profile'
+import { createProfile, updateProfile, deleteProfile, getProfile } from './../../api/profile'
 import './../../index.scss'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Col, Row } from 'react-bootstrap'
 import messages from '../AutoDismissAlert/messages'
 
 class Profile extends Component {
@@ -90,13 +90,44 @@ class Profile extends Component {
       })
   }
 
+  onGetProfile = event => {
+    const { msgAlert, user } = this.props
+    getProfile(user)
+      .then(user => user.data.profile)
+      .then(user => {
+        this.setState({
+          about: user.about,
+          avatarUrl: user.avatarUrl,
+          quote: user.quote,
+          rank: user.rank,
+          website: user.website
+        })
+      })
+      .then(() => msgAlert({
+        heading: 'Get Profile Successful',
+        message: messages.deleteProfileSuccess,
+        variant: 'success'
+      }))
+      .catch(error => {
+        msgAlert({
+          heading: 'Get Profile Failed with error: ' + error.message,
+          message: messages.deleteProfileFailure,
+          variant: 'danger'
+        })
+      })
+  }
+
+  componentDidMount () {
+    this.onGetProfile()
+  }
+
   render () {
     const { avatarUrl, about, rank, quote, website } = this.state
 
     return (
       <div>
 
-        <Form onSubmit={this.onUpdateProfile}>
+        <Form className='updateForm' onSubmit={this.onUpdateProfile}>
           <Form.Group controlId="about">
             <Form.Label>About</Form.Label>
             <Form.Control
@@ -154,28 +185,33 @@ class Profile extends Component {
             Update
           </Button>
         </Form>
-        <div className="row">
-          <Form onSubmit={this.onCreateProfile}>
-            <Button
-              variant="secondary"
-              type="submit"
-            >
-              Create
-            </Button>
-          </Form>
-          <Form onSubmit={this.onDeleteProfile}>
-            <Button
-              variant="danger"
-              type="submit"
-            >
-              Delete
-            </Button>
-          </Form>
+        <div className="row profile-buttons">
+          <Row>
+            <Col>
+              <Form onSubmit={this.onCreateProfile}>
+                <Button block
+                  variant="secondary"
+                  type="submit"
+                >
+                  Create
+                </Button>
+              </Form>
+            </Col>
+            <Col>
+              <Form onSubmit={this.onDeleteProfile}>
+                <Button block
+                  variant="danger"
+                  type="submit"
+                >
+                  Delete
+                </Button>
+              </Form>
+            </Col>
+          </Row>
         </div>
       </div>
     )
   }
 }
-// <Nav.Link href="#profile/update">{<Button variant="info">Update Profile</Button>}</Nav.Link>
 
 export default withRouter(Profile)
