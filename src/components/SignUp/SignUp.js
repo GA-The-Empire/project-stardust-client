@@ -51,7 +51,7 @@ class SignUp extends Component {
     const { email, password, passwordConfirmation, userName } = this.state
 
     return (
-      <div className="row">
+      <div className="row sign-up-form">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h3>Sign Up</h3>
           <Form onSubmit={this.onSignUp}>

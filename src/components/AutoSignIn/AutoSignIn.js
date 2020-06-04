@@ -48,6 +48,7 @@ class AutoSignIn extends Component {
       <Button
         variant="primary"
         type="click"
+        size="sm"
         onClick={this.onSignIn}
       >
         Auto-SignIn
