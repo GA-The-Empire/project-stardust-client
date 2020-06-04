@@ -118,7 +118,6 @@ class Profile extends Component {
   // }
   componentDidMount () {
     const { user } = this.props
-    console.log('component did mount: ', user.profile)
     if (!user.profile) {
       this.onCreateProfile()
     }
@@ -128,8 +127,6 @@ class Profile extends Component {
   }
   // componentWillReceiveProps (nextProps) {
   //   const { user } = this.props
-  //   console.log('This is the props: ', this.props)
-  //   console.log('This is the next props ', nextProps)
   //   if (user.profile && user.profile.about !== nextProps.user.profile.about) {
   //     this.setState(nextProps.user.profile)
   //   }
