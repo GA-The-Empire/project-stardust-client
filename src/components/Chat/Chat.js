@@ -13,27 +13,17 @@ const Chat = ({ user }) => {
 
   useEffect(() => {
     socketRef.current = io.connect(apiUrl)
-
     socketRef.current.on('your id', res => {
-      console.log(res.id, 'your id on')
-      console.log(res.body)
       setYourID(res.id)
     })
-
     socketRef.current.on('connect', () => {
-      console.log(user)
       socketRef.current.emit('send message', { id: '', body: `${user.userName} has entered the chat` })
     })
-
-    socketRef.current.on('disconnect', msg => {
-      socketRef.current.emit('send message', { id: '', body: `${user.userName} has left the chat` })
-    })
-
     socketRef.current.on('message', (message) => {
       receivedMessage(message)
     })
-
     return () => {
+      socketRef.current.emit('send message', { id: '', body: `${user.userName} has left the chat` })
       socketRef.current.disconnect()
     }
   }, [])

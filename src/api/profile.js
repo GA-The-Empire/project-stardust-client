@@ -1,81 +1,61 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const create = credentials => {
+export const createProfile = (credentials, user) => {
+  console.log(credentials)
+  console.log(user)
   return axios({
     method: 'POST',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
     url: apiUrl + '/profile',
     data: {
       user: {
         _id: credentials._id,
         profile: {
-          about: credentials.profile.about,
-          avatarUrl: credentials.profile.avatarUrl,
-          quote: credentials.profile.quote,
-          rank: credentials.profile.rank,
-          website: credentials.profile.website
+          about: credentials.about,
+          avatarUrl: credentials.avatarUrl,
+          quote: credentials.quote,
+          rank: credentials.rank,
+          website: credentials.website
         }
       }
     }
   })
 }
 
-export const update = credentials => {
+export const updateProfile = (credentials, user) => {
+  console.log('This is the credentials:', credentials)
+  console.log('This is the user:', user)
+  console.log('This is the user.profile:', user.profile)
   return axios({
-    url: apiUrl + '/profile/' + credentials._id,
-    method: 'POST',
+    url: apiUrl + '/profile/' + user._id,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
     data: {
       user: {
         _id: credentials._id,
         profile: {
-          about: credentials.profile.about,
-          avatarUrl: credentials.profile.avatarUrl,
-          quote: credentials.profile.quote,
-          rank: credentials.profile.rank,
-          website: credentials.profile.website
+          about: credentials.about,
+          avatarUrl: credentials.avatarUrl,
+          quote: credentials.quote,
+          rank: credentials.rank,
+          website: credentials.website
         }
       }
     }
   })
 }
 
-export const signOut = user => {
+export const deleteProfile = user => {
   return axios({
-    url: apiUrl + '/sign-out',
+    url: apiUrl + '/profile/' + user._id,
     method: 'DELETE',
     headers: {
       'Authorization': `Token token=${user.token}`
-    }
-  })
-}
-
-export const changePassword = (passwords, user) => {
-  return axios({
-    url: apiUrl + '/change-password',
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Token token=${user.token}`
-    },
-    data: {
-      passwords: {
-        old: passwords.oldPassword,
-        new: passwords.newPassword
-      }
-    }
-  })
-}
-
-export const changeUserName = (credentials, user) => {
-  return axios({
-    url: apiUrl + '/change-username',
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Token token=${user.token}`
-    },
-    data: {
-      credentials: {
-        userName: credentials.userName
-      }
     }
   })
 }

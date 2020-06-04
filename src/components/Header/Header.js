@@ -14,12 +14,6 @@ const authenticatedOptions = (
   </Fragment>
 )
 
-const profileOptions = (
-  <Fragment>
-    <Nav.Link href="#profile/update">{<Button variant="info">Update Profile</Button>}</Nav.Link>
-  </Fragment>
-)
-
 const unauthenticatedOptions = (
   <Fragment>
     <Nav.Link href="#sign-up">{<Button variant="success">Sign Up</Button>}</Nav.Link>
