@@ -11,5 +11,7 @@ export default {
   updateProfileSuccess: 'Profile updated successfully!',
   updateProfileFailure: 'Profile failed to update!',
   deleteProfileSuccess: 'Profile deleted successfully',
-  deleteProfileFailure: 'Profile failed to delete'
+  deleteProfileFailure: 'Profile failed to delete',
+  getProfileSuccess: 'Get success!',
+  getProfileFailure: 'Failed to get profile!'
 }

@@ -24,8 +24,6 @@ class Profile extends Component {
   })
 
   onCreateProfile = event => {
-    event.preventDefault()
-
     const { msgAlert, user } = this.props
 
     createProfile(this.state, user)
@@ -81,6 +79,17 @@ class Profile extends Component {
         message: messages.deleteProfileSuccess,
         variant: 'success'
       }))
+      .then(() => getProfile(user))
+      .then(user => user.data.profile)
+      .then(user => {
+        this.setState({
+          about: user.about,
+          avatarUrl: user.avatarUrl,
+          quote: user.quote,
+          rank: user.rank,
+          website: user.website
+        })
+      })
       .catch(error => {
         msgAlert({
           heading: 'Delete Profile Failed with error: ' + error.message,
@@ -105,20 +114,26 @@ class Profile extends Component {
       })
       .then(() => msgAlert({
         heading: 'Get Profile Successful',
-        message: messages.deleteProfileSuccess,
+        message: messages.getProfileSuccess,
         variant: 'success'
       }))
       .catch(error => {
         msgAlert({
           heading: 'Get Profile Failed with error: ' + error.message,
-          message: messages.deleteProfileFailure,
+          message: messages.getProfileFailure,
           variant: 'danger'
         })
       })
   }
 
   componentDidMount () {
-    this.onGetProfile()
+    const { user } = this.props
+    console.log(user.profile)
+    if (user.profile) {
+      this.onGetProfile()
+    } else if (!user.profile) {
+      this.onCreateProfile()
+    }
   }
 
   render () {
@@ -187,16 +202,6 @@ class Profile extends Component {
         </Form>
         <div className="row profile-buttons">
           <Row>
-            <Col>
-              <Form onSubmit={this.onCreateProfile}>
-                <Button block
-                  variant="secondary"
-                  type="submit"
-                >
-                  Create
-                </Button>
-              </Form>
-            </Col>
             <Col>
               <Form onSubmit={this.onDeleteProfile}>
                 <Button block

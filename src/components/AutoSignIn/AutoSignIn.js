@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
-import Button from 'react-bootstrap/Button'
+import { Button, Nav } from 'react-bootstrap'
 
 class AutoSignIn extends Component {
   constructor () {
@@ -45,14 +45,17 @@ class AutoSignIn extends Component {
 
   render () {
     return (
-      <Button
-        variant="primary"
-        type="click"
-        size="sm"
-        onClick={this.onSignIn}
-      >
-        Auto-SignIn
-      </Button>
+      <Fragment>
+        <Nav.Link href="#">
+          <Button className='auto-sign-in-button'
+            variant="primary"
+            type="click"
+            onClick={this.onSignIn}
+          >
+            Auto-SignIn
+          </Button>
+        </Nav.Link>
+      </Fragment>
     )
   }
 }
