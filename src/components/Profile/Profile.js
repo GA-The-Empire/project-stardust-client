@@ -115,6 +115,7 @@ class Profile extends Component {
   }
   componentDidMount () {
     const { user } = this.props
+    console.log(user.profile)
     if (user.profile) {
       this.onGetProfile()
     } else if (!user.profile) {
