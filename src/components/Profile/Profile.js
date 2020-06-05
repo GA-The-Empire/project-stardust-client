@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 // import apiUrl from './../../apiConfig'
-import { createProfile, updateProfile, deleteProfile, getProfile } from './../../api/profile'
+import { createProfile, updateProfile, deleteProfile } from './../../api/profile'
 import './../../index.scss'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import messages from '../AutoDismissAlert/messages'
@@ -66,22 +66,13 @@ class Profile extends Component {
     event.preventDefault()
     const { msgAlert, user } = this.props
     deleteProfile(user)
+      .then((res) => this.props.setUser(res.data.user))
       .then(() => msgAlert({
         heading: 'Profile Deleted Successful',
         message: messages.deleteProfileSuccess,
         variant: 'success'
       }))
-      .then(() => getProfile(user))
-      .then(user => user.data.profile)
-      .then(user => {
-        this.setState({
-          about: user.about,
-          avatarUrl: user.avatarUrl,
-          quote: user.quote,
-          rank: user.rank,
-          website: user.website
-        })
-      })
+      .then(() => this.props.history.push('/'))
       .catch(error => {
         msgAlert({
           heading: 'Delete Profile Failed with error: ' + error.message,
